@@ -1,0 +1,7 @@
+{
+  "java.project.referencedLibraries": [
+    "library/**/*.jar",
+    "/home/achilles/Documents/decomposer/disco-2.1.jar"
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic"
+}
