@@ -3,5 +3,6 @@
     "library/**/*.jar",
     "/home/achilles/Documents/decomposer/disco-2.1.jar"
   ],
-  "java.configuration.updateBuildConfiguration": "automatic"
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.debug.logLevel": "verbose"
 }

@@ -20,10 +20,12 @@ public class Main {
         */
         File inputPath = new File("./input/");
 
+        //logger.error("inputPath:=== " + inputPath + "is here");
         
         // 所有模式的路径 --> "./schemaOrgTree.jsonld" "2"
         // path all schema --> "./schemaOrgTree.jsonld" "2"
         File contextFile = new File("./schemaOrgTree.jsonld");
+        //logger.error("contextFile :=== " + contextFile + "is here");
         String resultsPath = "./results/";
 
         //磁盘db的路径 --> "/XXX/discoDb"。
@@ -37,15 +39,19 @@ public class Main {
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootContextNode = objectMapper.readTree(contextFile);
+        //logger.error("rootContextNode :=== " + rootContextNode + "=is here");
         long timestamp = System.currentTimeMillis();
 
         File[] listInput = inputPath.listFiles();
+//logger.error("listInput :=== " + listInput + "=is here");
         Utils.initializeDictionaries(discoDbPath);
 
         for (int i = 0; i < listInput.length ; i++) {
             FileWriter oStream = new FileWriter(resultsPath + timestamp + "_" + listInput[i].getName());
+// logger.error("resultsPath + timestamp   + listInput[i].getName() :=== " + resultsPath + timestamp + "_" + listInput[i].getName()+ "=is here");
             BufferedWriter out = new BufferedWriter(oStream);
             JsonNode inputNode = objectMapper.readTree(listInput[i]);
+//logger.error("inputNode :=== " + inputNode + "=is here");
             try {
                 JsonUtils.AnalyzeJson(inputNode, rootContextNode, "operations", out);
                 out.close();
@@ -57,7 +63,7 @@ public class Main {
         BuildResult(resultsPath,timestamp, rootContextNode, threshold);
 
         float seconds = (System.currentTimeMillis()-timestamp)/1000;
-        logger.info("The Process has taken: " + seconds + " seconds");
+        logger.error("The Process has taken: " + seconds + " seconds");
     }
 
     private static void BuildResult(String resultPath, long timestamp, JsonNode rootContextNode, Float threshold) {

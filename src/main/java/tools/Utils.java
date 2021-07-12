@@ -88,25 +88,25 @@ public class Utils {
             String retMayus="";
             char lastMayus=0;
             char charAux;
-            if(term.charAt(0)>=65 && term.charAt(0)<=90) // Si es mayuscula la 1er letra
+            if(term.charAt(0)>=65 && term.charAt(0)<=90) // Si es mayuscula la 1er letra如果第一个字母是大写的
             {
-                charAux= (char) (term.charAt(0)+32); // guarda la minuscula
+                charAux= (char) (term.charAt(0)+32); // guarda la minuscula小写保留
                 ret=Character.toString(charAux); // ret almaceno la letra
                 retMayus=Character.toString(charAux); // retMayus almaceno
                 mayus=true;
             }
             else
-                ret=Character.toString(term.charAt(0)); // si no es mayuscula se almacena el char en ret
+                ret=Character.toString(term.charAt(0)); // si no es mayuscula se almacena el char en re如果没有大写，该字符将存储在ret中。
             for(int i=1;i< term.length();i++)
             {
-                if(term.charAt(i)>=65 && term.charAt(i)<=90) // Si es una mayuscula
+                if(term.charAt(i)>=65 && term.charAt(i)<=90) // Si es una mayuscula如果是大写字母
                 {
 
-                    if(!mayus) //Es la primer Mayuscula
+                    if(!mayus) //Es la primer Mayuscula它是第一个大写字母
                     {
-                        if(retMayus.length()>1) // Ya existia anteriormente una seguidilla de mayusculas
+                        if(retMayus.length()>1) // Ya existia anteriormente una seguidilla de mayusculas过去已经有一个大写字母的序列
                         {
-                            if(isWord(lastMayus+ret))//es una palabra la ultima mayuscula + minusculas
+                            if(isWord(lastMayus+ret))//es una palabra la ultima mayuscula + minusculas是一个单词的最后一个大写+小写字母
                             {
                                 vec.add(retMayus.substring(0, retMayus.length()-1));
                                 vec.add(lastMayus+ret);
@@ -119,7 +119,7 @@ public class Utils {
                                 lastMayus=0;
                             }
                         }
-                        else // No existia anteriormente una seguidilla de mayusculas
+                        else // No existia anteriormente una seguidilla de mayusculas以前没有大写字母序列
                             if(ret.length()>0)
                                 vec.add(ret);
 
@@ -128,7 +128,7 @@ public class Utils {
                         ret=Character.toString(charAux);
                         retMayus=Character.toString(charAux);
                     }
-                    else //No es la primer mayuscula consecutiva
+                    else //No es la primer mayuscula consecutiva不是第一个连续的大写字母
                     {
                         charAux= (char) (term.charAt(i)+32);
                         retMayus = retMayus+charAux;
@@ -137,33 +137,33 @@ public class Utils {
 
 
                 }
-                else //No es una Mayuscula
+                else //No es una Mayuscula不是一个大写字母
                 {
                     if(term.charAt(i) == 45 || term.charAt(i)== 95 || esNumero(term.charAt(i))) //  Si es _ o -
                     {
-                        if(ret.length()>0) // si el guion esta despues de una acumulacion de Minusculas
+                        if(ret.length()>0) // si el guion esta despues de una acumulacion de Minusculas如果连字符在小写字母的堆积之后
                         {
                             vec.add(ret);
                             ret="";
                             retMayus="";
                         }
-                        else if(retMayus.length()>0) // si el guion esta despues de una acumulacion de Mayusculas
+                        else if(retMayus.length()>0) // si el guion esta despues de una acumulacion de Mayusculas如果连字符在大写字母的堆积之后
                         {
                             vec.add(retMayus);
                             retMayus="";
                         }
 
                         mayus=false;
-                    } // No es mayuscula ni _ ni - ni Numero// es una letra minuscula
+                    } // No es mayuscula ni _ ni - ni Numero// es una letra minuscula无论是_还是-还是Number//都不是小写字母。
                     else
                     {
-                        if(mayus) // la Letra anterior era una mayuscula
+                        if(mayus) // la Letra anterior era una mayuscula前一个字母是大写字母
                         {
                             lastMayus= (char) (term.charAt(i-1)+32);
                             ret=ret+term.charAt(i);
                             mayus=false;
                         }
-                        else // la letra anterior no era mayuscula
+                        else // la letra anterior no era mayuscula前一个字母没有大写
                         {
                             ret=ret+term.charAt(i);
                         }

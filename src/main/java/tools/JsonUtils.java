@@ -24,7 +24,9 @@ public class JsonUtils {
 
     private static String[] CompareWithJsonTree(Vector<String> vectorTerms, JsonNode contextNode, String childrenKey, float bestDepth, String bestResult, int level) {
         JsonNode children = contextNode.path(childrenKey);
+//logger.error("children :===| " + children + "|=is here");
         String [] ret = new String[2];
+logger.error("ret :===| " + ret + "|=is here");
         if (!children.isMissingNode()){
             Iterator<JsonNode> childrenElements = children.elements();
             level++;
@@ -126,12 +128,18 @@ public class JsonUtils {
 
     public static void AnalyzeJson(JsonNode inputNode, JsonNode rootContextNode, String childrenName, BufferedWriter out) throws IOException {
 
+//logger.error("inputNode + rootContextNode + childrenName+ out:=== " + inputNode   + childrenName+ out + "=is here");
         JsonNode auxInput = inputNode.path("name");
+//logger.error("auxInput :=== " + auxInput + "=is here");
         if (!auxInput.isMissingNode()){
+            //sanitizedInput means cleaned
             String sanitizedInput = inputNode.get("name").toString().replace("\"","").trim();
+//logger.error("sanitizedInput :=== " + sanitizedInput + "=is here");
             Vector<String> vectorTerms = Utils.separarTerminosAuxFine(sanitizedInput);
+//logger.error("vectorTerms :===/ " + vectorTerms + "/=is here");
             if (!vectorTerms.isEmpty()){
                 String[] mejorResultActual = CompareWithJsonTree(vectorTerms, rootContextNode, "children", 999, "", 0);
+logger.error("mejorResultActual :===| " + mejorResultActual + "|=is here");
                 try {
                     out.write(String.valueOf(vectorTerms+";"));
                     logger.info(String.valueOf(vectorTerms+";"));
@@ -147,10 +155,13 @@ public class JsonUtils {
             }
         }
         JsonNode children = inputNode.path(childrenName);
+//logger.error("children :=== " + children + "=is here");
         if (!children.isMissingNode()){
             Iterator<JsonNode> childrenElements = children.elements();
+//logger.error("childrenElements :=== " + childrenElements + "=is here");
             while (childrenElements.hasNext()){
                 JsonNode childrenElement = childrenElements.next();
+//logger.error("childrenElement :=== " + childrenElement + "=is here");
                 AnalyzeJson(childrenElement, rootContextNode, childrenName, out);
             }
         }
